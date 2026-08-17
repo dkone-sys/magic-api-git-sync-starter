@@ -87,15 +87,14 @@
 
     <build>
         <plugins>
-            <!-- 生成源码包 -->
+            <!-- 源码包：Maven Central 要求必须提供 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
+                <version>3.3.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>package</phase>   <!-- 明确绑定到 package 阶段 -->
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
@@ -103,21 +102,18 @@
                 </executions>
             </plugin>
 
-            <!-- 生成 javadoc jar -->
+            <!-- javadoc 包：Maven Central 要求必须提供 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.4.1</version>
+                <version>3.11.2</version>
                 <configuration>
                     <doclint>none</doclint>
                     <charset>UTF-8</charset>
-                    <encoding>UTF-8</encoding>
-                    <docencoding>UTF-8</docencoding>
                 </configuration>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
-                        <phase>package</phase>   <!-- 明确绑定到 package 阶段 -->
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -125,32 +121,28 @@
                 </executions>
             </plugin>
 
-            <!-- GPG 签名 -->
+            <!-- GPG 签名：passphrase 由 setup-java 注入的 MAVEN_GPG_PASSPHRASE 提供 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>3.2.7</version>
+                <configuration>
+                    <gpgArguments>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
+                    </gpgArguments>
+                </configuration>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
-                        <phase>verify</phase>   <!-- 在 verify 阶段执行，在 package 之后 -->
+                        <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <!-- 密码通过环境变量 GPG_PASSPHRASE（setup-java 注入）或 -Dgpg.passphrase 传入 -->
-                    <gpgArguments>
-                        <arg>--batch</arg>
-                        <arg>--no-tty</arg>
-                        <arg>--pinentry-mode</arg>
-                        <arg>loopback</arg>
-                    </gpgArguments>
-                </configuration>
             </plugin>
 
-            <!-- 发布到 Central Portal -->
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
@@ -159,7 +151,6 @@
                 <configuration>
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
-                    <waitUntil>validated</waitUntil>
                 </configuration>
             </plugin>
         </plugins>
