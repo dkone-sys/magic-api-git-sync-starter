@@ -1,0 +1,4 @@
+com\hizu\magicapi\gitsync\MagicGitSyncController.class
+com\hizu\magicapi\gitsync\MagicGitSyncService.class
+com\hizu\magicapi\gitsync\MagicGitSyncAutoConfiguration.class
+com\hizu\magicapi\gitsync\MagicConfigJsNoCacheFilter.class

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.github.dkone-sys</groupId>
+    <artifactId>magic-api-git-sync-starter</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>magic-api-git-sync-starter</name>
+    <description>
+        MagicAPI Git 手动同步插件：在 magic-api Web 编辑器工具栏注入"拉取"按钮，
+        点击立即 git pull 并重新加载接口，免重启同步远程仓库代码。
+        依赖项目已启用 magic-api 的 git 存储（magic-api-plugin-git）。
+    </description>
+
+    <url>https://github.com/dkone-sys/magic-api-git-sync-starter</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>dk</name>
+            <email>1372654703@qq.com</email>   <!-- 已更新 -->
+            <organization>dkone-sys</organization>
+            <organizationUrl>https://github.com/dkone-sys</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git://github.com/dkone-sys/magic-api-git-sync-starter.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/dkone-sys/magic-api-git-sync-starter.git</developerConnection>
+        <url>https://github.com/dkone-sys/magic-api-git-sync-starter</url>
+    </scm>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <magic-api.version>2.2.2</magic-api.version>
+        <spring-boot.version>2.3.4.RELEASE</spring-boot.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.ssssssss</groupId>
+            <artifactId>magic-api</artifactId>
+            <version>${magic-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ssssssss</groupId>
+            <artifactId>magic-api-plugin-git</artifactId>
+            <version>${magic-api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>5.13.0.202109080827-r</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 其他插件保持不变 ... -->
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <!-- 在 pom.xml 根节点下添加 dependencyManagement -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.8.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
