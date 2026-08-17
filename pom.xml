@@ -87,18 +87,7 @@
 
     <build>
         <plugins>
-            <!-- 其他插件保持不变 ... -->
-
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.8.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <autoPublish>true</autoPublish>
-                </configuration>
-            </plugin>
+            <!-- 生成源码包 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -151,16 +140,17 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- 从 settings.xml 或环境变量中读取密码 -->
-                    <passphrase>${gpg.passphrase}</passphrase>
+                    <!-- 密码通过环境变量 GPG_PASSPHRASE（setup-java 注入）或 -Dgpg.passphrase 传入 -->
                     <gpgArguments>
                         <arg>--batch</arg>
                         <arg>--no-tty</arg>
+                        <arg>--pinentry-mode</arg>
+                        <arg>loopback</arg>
                     </gpgArguments>
                 </configuration>
             </plugin>
 
-            <!-- 发布到 Central Portal（保持不变） -->
+            <!-- 发布到 Central Portal -->
             <plugin>
                 <groupId>org.sonatype.central</groupId>
                 <artifactId>central-publishing-maven-plugin</artifactId>
@@ -169,20 +159,9 @@
                 <configuration>
                     <publishingServerId>central</publishingServerId>
                     <autoPublish>true</autoPublish>
+                    <waitUntil>validated</waitUntil>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-    <!-- 在 pom.xml 根节点下添加 dependencyManagement -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.8.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>

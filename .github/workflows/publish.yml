@@ -1,5 +1,10 @@
 name: Publish to Maven Central
 
+# 依赖的 GitHub Secrets：
+#   CENTRAL_USERNAME / CENTRAL_PASSWORD: Sonatype Central 的 User Token 用户名/密码
+#   GPG_PRIVATE_KEY: 必须带 "base64:" 前缀，如 base64:LS0tLS1CRUdJTi...
+#   GPG_PASSPHRASE: GPG 私钥密码（无密码则为空字符串）
+
 on:
   release:
     types: [published]
@@ -24,7 +29,7 @@ jobs:
           gpg-passphrase: GPG_PASSPHRASE
 
       - name: Publish to Maven Central
-        run: mvn --batch-mode deploy
+        run: mvn --batch-mode deploy -Dgpg.passphrase="$GPG_PASSPHRASE"
         env:
           CENTRAL_USERNAME: ${{ secrets.CENTRAL_USERNAME }}
           CENTRAL_PASSWORD: ${{ secrets.CENTRAL_PASSWORD }}
