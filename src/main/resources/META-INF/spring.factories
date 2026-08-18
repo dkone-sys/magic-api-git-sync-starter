@@ -1,1 +1,1 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.hizu.magicapi.gitsync.MagicGitSyncAutoConfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.magicapi.gitsync.MagicGitSyncAutoConfiguration

@@ -1,4 +1,4 @@
-package com.hizu.magicapi.gitsync;
+package com.magicapi.gitsync;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullResult;

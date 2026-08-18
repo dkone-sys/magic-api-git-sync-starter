@@ -1,4 +1,4 @@
-package com.hizu.magicapi.gitsync;
+package com.magicapi.gitsync;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 

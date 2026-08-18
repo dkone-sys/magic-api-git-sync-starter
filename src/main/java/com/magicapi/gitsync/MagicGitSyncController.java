@@ -1,4 +1,4 @@
-package com.hizu.magicapi.gitsync;
+package com.magicapi.gitsync;
 
 import org.ssssssss.magicapi.core.context.MagicUser;
 import org.ssssssss.magicapi.core.interceptor.AuthorizationInterceptor;
